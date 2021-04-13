@@ -12,6 +12,7 @@ const section = process.env.SECTION;
 
 module.exports.load = async (event) => {
     let start = performance.now();
+
     let ret = await client.query(
         // the below is Fauna API for "select from news where section = 'world' order by view_count limit 10"
         q.Map(q.Paginate(q.Match(q.Index('section_by_view_count'), section), {size: 10}), q.Lambda(["view_count", "X"], q.Get(q.Var("X"))))
@@ -29,15 +30,18 @@ module.exports.load = async (event) => {
     }
 
     // we are setting random scores to top-10 items asynchronously to simulate real time dynamic data
+    const updates = [];
     ret.data.forEach((item) => {
         let view_count = Math.floor(Math.random() * 1000);
-        client.query(
+        updates.push(
             q.Update(
                 q.Ref(q.Collection('news'), item["ref"].id),
                 {data: {view_count}},
             )
-        ).catch((err) => console.error('Error: %s', err))
+        )
     })
+
+    client.query(updates).catch((err) => console.error('Error: %s', err));
 
     return {
         statusCode: 200,
