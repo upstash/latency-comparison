@@ -1,0 +1,70 @@
+body {
+    background-color: #fff;
+}
+
+.intro {
+    width: 80%;
+    line-height: 1.6;
+    margin: auto;
+    margin-top: 20px;
+    background-color: #FAFAFA;
+    color: #282c34;
+    border: 1px solid #282c34;
+    border-radius: 5px;
+    padding: 1.5rem;
+    font-size: 1.1rem;
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.newsImage {
+    width: 180px;
+    margin: 10px;
+}
+
+.newsDiv {
+    border-bottom: 1px solid #aaa;
+    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.seelink {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+a {
+    color: #0070f3;
+}
+
+.reload {
+    color: #0070f3;
+    font-size: 16pt;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.latencyTable {
+    margin-top: 20px;
+}
+
+.latencyTable td {
+    font-weight: bold;
+    padding: 7px;
+    font-size: 13pt;
+}
+
+.dbtd {
+    text-align: left;
+}
+
+.tdlatency {
+    text-align: right;
+    font-size: 15pt;
+    color: #0070f3;
+}
+
+.chartDiv {
+}

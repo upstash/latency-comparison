@@ -1,0 +1,9 @@
+mutation {
+  redisDel(keys:
+  [
+    "histogram-redis",
+    "histogram-fauna",
+    "histogram-dynamo",
+    "histogram-graphql",
+  ])
+}

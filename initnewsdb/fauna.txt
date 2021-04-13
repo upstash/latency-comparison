@@ -1,0 +1,31 @@
+   CreateIndex({
+     name: "section_by_view_count",
+     unique: false,
+     serialized: false,
+     source: Collection("news"),
+     terms: [
+       {
+         field: ["data", "section"]
+       }
+     ],
+     values: [
+       {
+         field: ["data", "view_count"], reverse: true
+       },
+       {
+         field: ["ref"]
+       }
+     ]
+   })
+    
+
+Map(
+  Paginate(
+    Documents(Collection('news')),
+    { size: 9999 }
+  ),
+  Lambda(
+    ['ref'],
+    Delete(Var('ref'))
+  )
+)

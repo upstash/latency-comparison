@@ -1,0 +1,11 @@
+query {
+    graphql: redisLRange(key:"histogram-graphql",
+        start: 0, stop: 100),
+    redis: redisLRange(key:"histogram-redis",
+        start: 0, stop: 100)
+    dynamo: redisLRange(key:"histogram-dynamo",
+        start: 0, stop: 100)
+    fauna: redisLRange(key:"histogram-fauna",
+        start: 0, stop: 100)
+
+}
