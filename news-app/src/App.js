@@ -151,7 +151,11 @@ function App() {
             Upstash: {Math.round(redisLatency)} ms
             <br/>
             <br/>
-            See the latency numbers so far:
+            See <a href="https://blog.upstash.com/latency-comparison" rel="noreferrer" target="_blank">the blog post
+            </a> for the details.
+            <br/>
+            <br/>
+            <b>The latency numbers so far:</b>
             <br/>
             <br/>
             <div className="container-fluid">
@@ -246,11 +250,11 @@ function App() {
                 the full histogram
             </a>
             |
-            <a href="#" rel="noreferrer" className="seelink" target="_blank">
+            <a href="https://blog.upstash.com/latency-comparison" rel="noreferrer" className="seelink" target="_blank">
                 the blog post
             </a>
             |
-            <a href="#" rel="noreferrer" className="seelink" target="_blank">
+            <a href="https://github.com/upstash/latency-comparison" rel="noreferrer" className="seelink" target="_blank">
                 the source code
             </a>
             <br/>
