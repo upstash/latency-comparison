@@ -1,21 +1,16 @@
 {
-  "name": "initmoviesdb",
+  "name": "gcp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.864.0",
     "dotenv": "^8.2.0",
-    "faunadb": "^4.1.1",
     "firebase-admin": "^9.11.1",
-    "ioredis": "^4.24.2",
-    "mongodb": "^4.0.1",
-    "node-fetch": "^2.6.1"
+    "ioredis": "^4.24.2"
   }
 }
