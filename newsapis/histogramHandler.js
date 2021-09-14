@@ -13,6 +13,8 @@ module.exports.load = async (event) => {
     let dataRedisrest = await client.lrange("histogram-redisrest", 0, 10000)
     let dataDynamo = await client.lrange("histogram-dynamo", 0, 10000)
     let dataFauna = await client.lrange("histogram-fauna", 0, 10000)
+    let dataFaunaUs = await client.lrange("histogram-fauna-us", 0, 10000)
+    let dataGlobal = await client.lrange("histogram-global", 0, 10000)
     let dataEdgeE = await client.lrange("histogram-edgeEnabled", 0, 10000)
     let dataEdgeD = await client.lrange("histogram-edgeDisabled", 0, 10000)
     const hmongo = hdr.build();
@@ -23,6 +25,8 @@ module.exports.load = async (event) => {
     const hredisrest = hdr.build();
     const hdynamo = hdr.build();
     const hfauna = hdr.build();
+    const hfaunaus = hdr.build();
+    const hglobal = hdr.build();
     const hedgee = hdr.build();
     const hedged = hdr.build();
     dataRedis.forEach(item => {
@@ -49,6 +53,12 @@ module.exports.load = async (event) => {
     dataFauna.forEach(item => {
         hfauna.recordValue(item);
     })
+    dataFaunaUs.forEach(item => {
+        hfaunaus.recordValue(item);
+    })
+    dataGlobal.forEach(item => {
+        hglobal.recordValue(item);
+    })
     dataEdgeE.forEach(item => {
         hedgee.recordValue(item);
     })
@@ -63,6 +73,8 @@ module.exports.load = async (event) => {
     hredismz.maxValue = null
     hredisrest.maxValue = null
     hfauna.maxValue = null
+    hfaunaus.maxValue = null
+    hglobal.maxValue = null
     hdynamo.maxValue = null
     hedgee.maxValue = null
     hedged.maxValue = null
@@ -82,6 +94,8 @@ module.exports.load = async (event) => {
                 redisrest_min: hredisrest.minNonZeroValue,
                 dynamo_min: hdynamo.minNonZeroValue,
                 fauna_min: hfauna.minNonZeroValue,
+                faunaus_min: hfaunaus.minNonZeroValue,
+                global_min: hglobal.minNonZeroValue,
                 edgee_min: hedgee.minNonZeroValue,
                 edged_min: hedged.minNonZeroValue,
                 redis_mean: hredis.mean,
@@ -92,6 +106,8 @@ module.exports.load = async (event) => {
                 redisrest_mean: hredisrest.mean,
                 dynamo_mean: hdynamo.mean,
                 fauna_mean: hfauna.mean,
+                faunaus_mean: hfaunaus.mean,
+                global_mean: hglobal.mean,
                 edgee_mean: hedgee.mean,
                 edged_mean: hedged.mean,
                 redis_histogram: hredis,
@@ -102,6 +118,8 @@ module.exports.load = async (event) => {
                 redisrest_histogram: hredisrest,
                 dynamo_histogram: hdynamo,
                 fauna_histogram: hfauna,
+                faunaus_histogram: hfaunaus,
+                global_histogram: hglobal,
                 edgee_histogram: hedgee,
                 edged_histogram: hedged,
             },

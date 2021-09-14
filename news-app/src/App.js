@@ -13,6 +13,7 @@ function App() {
     const [mongoLatency, setMongoLatency] = useState("?");
     const [firestoreLatency, setFirestoreLatency] = useState("?");
     const [faunaLatency, setFaunaLatency] = useState("?");
+    const [faunaUsLatency, setFaunaUsLatency] = useState("?");
     const [cassandraLatency, setCassandraLatency] = useState("?");
     const [latency50, setLatency50] = useState({redis: "?", dynamo: "?", fauna: "?", redismz: "?", redisrest: "?", mongo: "?", cassandra: "?", firestore: "?"});
     const [latency99, setLatency99] = useState({redis: "?", dynamo: "?", fauna: "?", redismz: "?", redisrest: "?", mongo: "?", cassandra: "?", firestore: "?"});
@@ -71,6 +72,18 @@ function App() {
                 (result) => {
                     temp = temp.concat(result.data.Items)
                     setFaunaLatency(result.latency)
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                }
+            ))
+        promises.push(fetch(apiUrl + "faunaus")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    temp = temp.concat(result.data.Items)
+                    setFaunaUsLatency(result.latency)
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -137,6 +150,7 @@ function App() {
                         mongo: result.mongo_histogram.p50,
                         firestore: result.firestore_histogram.p50,
                         cassandra: result.cassandra_histogram.p50,
+                        faunaus: result.faunaus_histogram.p50,
                         fauna: result.fauna_histogram.p50
                     })
                     setLatency99({
@@ -147,6 +161,7 @@ function App() {
                         mongo: result.mongo_histogram.p99,
                         firestore: result.firestore_histogram.p99,
                         cassandra: result.cassandra_histogram.p99,
+                        faunaus: result.faunaus_histogram.p99,
                         fauna: result.fauna_histogram.p99
                     })
                     setLatency999({
@@ -157,6 +172,7 @@ function App() {
                         mongo: result.mongo_histogram.p99_9,
                         firestore: result.firestore_histogram.p99_9,
                         cassandra: result.cassandra_histogram.p99_9,
+                        faunaus: result.faunaus_histogram.p99_9,
                         fauna: result.fauna_histogram.p99_9
                     })
                 }
@@ -246,6 +262,7 @@ function App() {
             Firestore: {Math.round(firestoreLatency)} ms |
             MongoDB: {Math.round(mongoLatency)} ms |
             FaunaDB: {Math.round(faunaLatency)} ms |
+            FaunaDB (US Region): {Math.round(faunaUsLatency)} ms |
             Upstash: {Math.round(redisLatency)} ms |
             Upstash Multizone: {Math.round(redismzLatency)} ms |
             Upstash REST: {Math.round(redisrestLatency)} ms
@@ -272,6 +289,7 @@ function App() {
                                 ['Firestore', latency50.firestore, "#469454", latency50.firestore],
                                 ['MongoDB', latency50.mongo, "#469454", latency50.mongo],
                                 ['FaunaDB', latency50.fauna, "#39059E", latency50.fauna],
+                                ['FaunaDB US', latency50.faunaus, "#3905CE", latency50.faunaus],
                                 ['Upstash', latency50.redis, "#6BE5A8", latency50.redis],
                                 ['Upstash Multizone', latency50.redismz, "#6BE5A8", latency50.redismz],
                                 ['Upstash REST', latency50.redisrest, "#6BE5A8", latency50.redisrest],
@@ -303,6 +321,7 @@ function App() {
                                 ['Firestore', latency99.firestore, "#469454", latency99.firestore],
                                 ['MongoDB', latency99.mongo, "#469454", latency99.mongo],
                                 ['FaunaDB', latency99.fauna, "#39059E", latency99.fauna],
+                                ['FaunaDB US', latency99.faunaus, "#3905CE", latency99.faunaus],
                                 ['Upstash', latency99.redis, "#6BE5A8", latency99.redis],
                                 ['Upstash Multizone', latency99.redismz, "#6BE5A8", latency99.redismz],
                                 ['Upstash REST', latency99.redisrest, "#6BE5A8", latency99.redisrest],
@@ -334,6 +353,7 @@ function App() {
                                 ['Firestore', latency999.firestore, "#469454", latency999.firestore],
                                 ['MongoDB', latency999.mongo, "#469454", latency999.mongo],
                                 ['FaunaDB', latency999.fauna, "#39059E", latency999.fauna],
+                                ['FaunaDB US', latency99.faunaus, "#3905CE", latency999.faunaus],
                                 ['Upstash', latency999.redis, "#6BE5A8", latency999.redis],
                                 ['Upstash Multizone', latency999.redismz, "#6BE5A8", latency999.redismz],
                                 ['Upstash REST', latency999.redisrest, "#6BE5A8", latency999.redisrest],
